@@ -2,6 +2,7 @@ import { Telegraf, Markup, session } from "telegraf";
 import { playGuessGame } from "./functions/play-guess-game.js";
 import { loadUserScores, updateUserScore } from "./functions/user-score.js";
 import dotenv from "dotenv";
+import express from "express";
 
 dotenv.config();
 
@@ -99,3 +100,13 @@ bot.command("leaderboard", async (ctx) => {
 });
 
 bot.launch();
+
+const app = express();
+app.get("/", (req, res) => {
+  res.send("Bot is running");
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log("Server listening on port", PORT);
+});
